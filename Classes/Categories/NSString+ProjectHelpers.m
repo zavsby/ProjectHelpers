@@ -51,29 +51,32 @@
     return ![self isEmpty];
 }
 
-+ (NSString *)stringFromInteger:(int)number
-{
-    return [NSString stringWithFormat:@"%d", number];
++ (NSString *)stringFromInteger:(NSInteger)number {
+    return [NSString stringWithFormat:@"%ld", (long)number];
 }
 
-+ (NSString *)stringFromFloat:(float)number withDecimalNumbers:(int)decimalNumbersCount
-{
-    NSString *format = [NSString stringWithFormat:@"%%.%df", decimalNumbersCount];
++ (NSString *)stringFromFloat:(CGFloat)number withDecimalNumbers:(NSInteger)decimalNumbersCount {
+    NSString *format = [NSString stringWithFormat:@"%%.%ldf", (long)decimalNumbersCount];
     return [NSString stringWithFormat:format, number];
 }
 
-- (int)stringHeightWithFont:(UIFont *)font width:(int)width
-{
-    if ([self isEmpty])
-    {
-        return 0;
+- (CGFloat)heightWithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    if ([self isEmpty]) {
+        return 0.0;
     }
     
-    CGRect frame = CGRectIntegral([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                     options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                  attributes:@{NSFontAttributeName:font}
-                                                     context:nil]);
-    return frame.size.height + 1;
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName: font,
+                                 NSParagraphStyleAttributeName: paragraphStyle
+                                 };
+    CGRect rect = [self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes:attributes context:nil];
+    
+    return ceill(rect.size.height);
 }
 
 @end

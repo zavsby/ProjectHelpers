@@ -19,17 +19,4 @@
     return [self valueForKey:key];
 }
 
-- (NSNumber *)numberForKey:(NSString *)key
-{
-	id obj = [self valueForKey:key];
-	if ([obj isKindOfClass:[NSNumber class]])
-	{
-		return obj;
-	}
-	else
-	{
-		return [NSNumber numberWithInt:[[obj description] intValue]];
-	}
-}
-
 @end

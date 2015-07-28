@@ -10,14 +10,8 @@
 
 @implementation NSMutableDictionary (ProjectHelpers)
 
-- (void)addObject:(id)value forKey:(NSString *)key
-{
-    if (key == nil)
-    {
-        return;
-    }
-    if (value != nil)
-    {
+- (void)addObject:(id)value forKey:(NSString *)key {
+    if (key != nil && value != nil) {
         [self setObject:value forKey:key];
     }
 }

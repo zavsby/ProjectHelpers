@@ -19,9 +19,9 @@
 - (BOOL)isEmpty;
 - (BOOL)anyText;
 
-+ (NSString *)stringFromInteger:(int)number;
-+ (NSString *)stringFromFloat:(float)number withDecimalNumbers:(int)decimalNumbersCount;
++ (NSString *)stringFromInteger:(NSInteger)number;
++ (NSString *)stringFromFloat:(CGFloat)number withDecimalNumbers:(NSInteger)decimalNumbersCount;
 
-- (int)stringHeightWithFont:(UIFont *)font width:(int)width;
+- (CGFloat)heightWithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 @end

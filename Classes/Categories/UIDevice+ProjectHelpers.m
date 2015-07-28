@@ -8,6 +8,11 @@
 
 #import "UIDevice+ProjectHelpers.h"
 
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <net/if.h>
+#include <net/if_dl.h>
+
 @implementation UIDevice (ProjectHelpers)
 
 - (NSString *)getMacAddress
@@ -77,38 +82,35 @@
     return macAddressString;
 }
 
-+ (BOOL)isIpad
-{
++ (BOOL)isIpad {
     return [[self currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
-+ (BOOL)isIPhone
-{
++ (BOOL)isIPhone {
     return [[self currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 }
 
-+ (BOOL)isIOS7
-{
++ (BOOL)isIOS7 {
     return [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0 && [[[UIDevice currentDevice] systemVersion] floatValue] < 8.0;
 }
 
-+ (BOOL)isIOS8
-{
++ (BOOL)isIOS8 {
     return [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0;
 }
 
-+ (BOOL)isPortraitOrientation
-{
-    return UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
++ (BOOL)isIOS8orAbove {
+    return [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0;
 }
 
-+ (BOOL)isLandscapeOrientation
-{
-    return UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
++ (BOOL)isPortraitOrientation {
+    return UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
 }
 
-+ (UIInterfaceOrientation)currentOrientation
-{
++ (BOOL)isLandscapeOrientation {
+    return UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+}
+
++ (UIInterfaceOrientation)currentOrientation {
     return [[UIApplication sharedApplication] statusBarOrientation];
 }
 
