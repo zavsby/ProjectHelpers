@@ -7,33 +7,32 @@
 //
 
 #import "NSDate+ProjectHelpers.h"
+#import "PHDateFormatter.h"
 
 @implementation NSDate (ProjectHelpers)
 
 + (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
-    NSDateComponents* components = [[NSDateComponents alloc] init];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
     components.day = day;
     components.month = month;
     components.year = year;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    return [calendar dateFromComponents:components];
+    return [[NSCalendar currentCalendar] dateFromComponents:components];
 }
 
 - (NSString *)formattedDate:(NSString *)format {
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = format;
-    NSString* dateString = [dateFormatter stringFromDate:self];
-    return dateString;
+    if (format.length > 0) {
+        NSDateFormatter *dateFormatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:format];
+        return [dateFormatter stringFromDate:self];
+    }
+    return nil;
 }
 
 + (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format {
-    if (dateString == nil || (NSNull *)dateString == [NSNull null]) {
-        return nil;
+    if (format.length > 0 && dateString.length > 0) {
+        NSDateFormatter *dateFormatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:format];
+        return [dateFormatter dateFromString:dateString];
     }
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = format;
-    NSDate* date = [dateFormatter dateFromString:dateString];
-    return date;
+    return nil;
 }
 
 - (NSComparisonResult)compareWithoutTimeWithDate:(NSDate *)date {
@@ -73,7 +72,7 @@
     return abs((int)[difference day]);
 }
 
--(NSDate *)remindBirthdayDateIn:(NSInteger)days atHour:(NSInteger)hour andMinute:(NSInteger)minute {
+- (NSDate *)remindBirthdayDateIn:(NSInteger)days atHour:(NSInteger)hour andMinute:(NSInteger)minute {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     NSDate* birthdayDate = [self dateOfDayBeginning];
     NSTimeInterval interval = [birthdayDate timeIntervalSince1970] - days * 86400;

@@ -10,9 +10,20 @@
 
 @interface NSDate (ProjectHelpers)
 
-+ (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
+/**
+ *  Creates NSDate object from string with given format.
+ *  Uses date formatters caching by PHDateFormatter.
+ */
 + (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format;
+/**
+ *  Creates NSDate object with given day, month and year.
+ */
++ (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
 
+/**
+ *  Returns string with given format from NSDate object.
+ *  Uses date formatters caching by PHDateFormatter.
+ */
 - (NSString *)formattedDate:(NSString *)format;
 
 - (NSComparisonResult)compareWithoutTimeWithDate:(NSDate *)date;
