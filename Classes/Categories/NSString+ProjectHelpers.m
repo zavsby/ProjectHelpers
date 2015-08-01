@@ -11,24 +11,20 @@
 
 @implementation NSString (ProjectHelpers)
 
-+(NSString*)stringHTTPEncodedFromString:(NSString *)str
-{
++ (NSString*)stringHTTPEncodedFromString:(NSString *)str {
     return [str stringHTTPEncoded];
 }
 
--(NSString*)stringHTTPEncoded
-{
+- (NSString *)stringHTTPEncoded {
     return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes( NULL,(CFStringRef)self,NULL,(CFStringRef)@"!Т\"();:@&=+$,/?%#[]% ",kCFStringEncodingISOLatin1);
 }
 
-+(NSString*)stringFromDecimalTime:(float)time
-{
++ (NSString *)stringFromDecimalTime:(CGFloat)time {
     int minutes = ((int)(time*60))%60;
     return [NSString stringWithFormat:@"%dh%dm",(int)time,minutes];
 }
 
-- (NSString *) md5
-{
+- (NSString *)md5 {
 	const char *cStr = [self UTF8String];
 	unsigned char result[16];
 	CC_MD5( cStr, (CC_LONG)strlen(cStr), result ); // This is the md5 call
@@ -41,39 +37,75 @@
 			];
 }
 
-- (BOOL)isEmpty
-{
-    return ([[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) ? YES : NO;
+- (BOOL)isEmpty {
+    return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
 }
 
-- (BOOL)anyText
-{
+- (BOOL)anyText {
     return ![self isEmpty];
 }
 
-+ (NSString *)stringFromInteger:(int)number
-{
-    return [NSString stringWithFormat:@"%d", number];
++ (NSString *)stringFromInteger:(NSInteger)number {
+    return [NSString stringWithFormat:@"%ld", (long)number];
 }
 
-+ (NSString *)stringFromFloat:(float)number withDecimalNumbers:(int)decimalNumbersCount
-{
-    NSString *format = [NSString stringWithFormat:@"%%.%df", decimalNumbersCount];
++ (NSString *)stringFromFloat:(CGFloat)number withDecimalNumbers:(NSInteger)decimalNumbersCount {
+    NSString *format = [NSString stringWithFormat:@"%%.%ldf", (long)decimalNumbersCount];
     return [NSString stringWithFormat:format, number];
 }
 
-- (int)stringHeightWithFont:(UIFont *)font width:(int)width
-{
-    if ([self isEmpty])
-    {
+- (CGFloat)heightWithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    if (!font || [self isEmpty]) {
         return 0;
     }
     
-    CGRect frame = CGRectIntegral([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                     options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
-                                                  attributes:@{NSFontAttributeName:font}
-                                                     context:nil]);
-    return frame.size.height + 1;
+    if ([self rangeOfString:@"\n"].location != NSNotFound) {
+        return [self heightWithFont:font maxWidth:maxWidth];
+    }
+    
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName: font,
+                                 NSParagraphStyleAttributeName: paragraphStyle
+                                 };
+    
+    CGRect rect = [self boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes:attributes
+                                     context:nil];
+    
+    return ceill(rect.size.height);
+}
+
+- (CGFloat)heightWithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth {
+    UITextView *textView = [UITextView new];
+    [textView setFont:font];
+    [textView setText:self];
+    CGSize textSize = [textView sizeThatFits:CGSizeMake(maxWidth, FLT_MAX)];
+    
+    return textSize.height;
+}
+
+- (CGFloat)widthWithfont:(UIFont *)font maxHeight:(CGFloat)maxHeight lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    if (!font) {
+        return 0;
+    }
+    
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.lineBreakMode = lineBreakMode;
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName : font,
+                                 NSParagraphStyleAttributeName: paragraph
+                                 };
+    
+    CGRect rect = [self boundingRectWithSize:CGSizeMake (CGFLOAT_MAX, maxHeight)
+                                     options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
+                                  attributes:attributes
+                                     context:nil];
+    return ceilf(rect.size.width);
 }
 
 @end

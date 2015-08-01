@@ -10,7 +10,6 @@
 
 @interface NSDictionary (NULLDefender)
 
-- (id)nullableValueForKey:(NSString *)key;
-- (NSNumber*)numberForKey:(NSString*)key;
+- (id)nullableValueForKey:(NSString *)key __deprecated_msg("Use stringForKey: or numberForKey: instead.");
 
 @end

@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#include <sys/socket.h>
-#include <sys/sysctl.h>
-#include <net/if.h>
-#include <net/if_dl.h>
 
 @interface UIDevice (ProjectHelpers)
 
-- (NSString *)getMacAddress;
+- (NSString *)getMacAddress __deprecated_msg("Using of this method is prohibited by Apple.");
+
 + (BOOL)isIpad;
 + (BOOL)isIPhone;
 
 + (BOOL)isIOS7;
-+ (BOOL)isIOS8;
++ (BOOL)isIOS8orAbove;
++ (BOOL)isIOS8 __deprecated_msg("Use isIOS8orAbove method instead.");
 
 + (BOOL)isLandscapeOrientation;
 + (BOOL)isPortraitOrientation;

@@ -8,20 +8,22 @@
 
 @import Foundation;
 @import UIKit;
+
 #import <CommonCrypto/CommonDigest.h>
 
 @interface NSString (ProjectHelpers)
 
-+(NSString*)stringHTTPEncodedFromString:(NSString *)str;
--(NSString*)stringHTTPEncoded;
-+(NSString*)stringFromDecimalTime:(float)time;
-- (NSString *) md5;
++ (NSString *)stringHTTPEncodedFromString:(NSString *)str;
+- (NSString *)stringHTTPEncoded;
++ (NSString *)stringFromDecimalTime:(CGFloat)time;
+- (NSString *)md5;
 - (BOOL)isEmpty;
 - (BOOL)anyText;
 
-+ (NSString *)stringFromInteger:(int)number;
-+ (NSString *)stringFromFloat:(float)number withDecimalNumbers:(int)decimalNumbersCount;
++ (NSString *)stringFromInteger:(NSInteger)number;
++ (NSString *)stringFromFloat:(CGFloat)number withDecimalNumbers:(NSInteger)decimalNumbersCount;
 
-- (int)stringHeightWithFont:(UIFont *)font width:(int)width;
+- (CGFloat)heightWithFont:(UIFont *)font maxWidth:(CGFloat)maxWidth lineBreakMode:(NSLineBreakMode)lineBreakMode;
+- (CGFloat)widthWithfont:(UIFont *)font maxHeight:(CGFloat)maxHeight lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 @end
