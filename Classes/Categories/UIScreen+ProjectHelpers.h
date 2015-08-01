@@ -10,7 +10,11 @@
 
 @interface UIScreen (ProjectHelpers)
 
-+ (int)screenHeight;
-+ (int)screenWidth;
++ (int)screenHeight __deprecated_msg("Use +orientedScreenHeight instead.");
++ (int)screenWidth __deprecated_msg("Use +orientedScreenWidth instead.");
+
++ (CGSize)orientedScreenSize;
++ (CGFloat)orientedScreenHeight;
++ (CGFloat)orientedScreenWidth;
 
 @end

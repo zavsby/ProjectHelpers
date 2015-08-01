@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSSortDescriptor+ProjectHelpers.h"
 
 @interface NSArray (ProjectHelpers)
 
-- (NSArray *)sortedArray:(NSString *)sort;
+- (NSArray *)sortedArray:(NSString *)sortString;
 
 @end

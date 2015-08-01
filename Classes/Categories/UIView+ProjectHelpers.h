@@ -10,17 +10,13 @@
 
 @interface UIView (ProjectHelpers)
 
-@property (nonatomic) float left;
-@property (nonatomic) float top;
-@property (nonatomic) float bottom;
-@property (nonatomic) float right;
-@property (nonatomic) float height;
-@property (nonatomic) float width;
+@property (nonatomic, assign) CGFloat left;
+@property (nonatomic, assign) CGFloat top;
+@property (nonatomic, assign) CGFloat bottom;
+@property (nonatomic, assign) CGFloat right;
+@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) CGFloat width;
 
-- (void)setFrameX:(CGFloat)x;
-- (void)setFrameY:(CGFloat)y;
-- (void)setFrameHeight:(CGFloat)height;
-- (void)setFrameWidth:(CGFloat)width;
 - (void)setFrameX:(CGFloat)x andY:(CGFloat)y;
 - (void)setFrameHeight:(CGFloat)height andWidth:(CGFloat)width;
 - (void)setTop:(CGFloat)top andHeight:(CGFloat)height;

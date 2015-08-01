@@ -10,7 +10,7 @@
 
 @interface UILabel (ProjectHelpers)
 
-- (void)setLabelFrameBehindLabel:(UILabel*)label withIndent:(int)indent;
-- (float)labelHeightForText:(NSString *)text;
+- (void)setLabelFrameBehindLabel:(UILabel *)label withIndent:(NSInteger)indent __deprecated;
+- (CGFloat)labelHeightForText:(NSString *)text __deprecated_msg("This method can return wrong value. Use NSString category instead.");
 
 @end

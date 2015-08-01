@@ -9,58 +9,26 @@
 
 @implementation UIView (ProjectHelpers)
 
-- (void)setFrameX:(CGFloat)x
-{
-    CGRect frame = self.frame;
-    frame.origin.x = x;
-    self.frame = frame;
-}
-
-- (void)setFrameY:(CGFloat)y
-{
-    CGRect frame = self.frame;
-    frame.origin.y = y;
-    self.frame = frame;
-}
-
-- (void)setFrameHeight:(CGFloat)height
-{
-    CGRect frame = self.frame;
-    frame.size.height = height;
-    self.frame = frame;
-}
-
-- (void)setFrameWidth:(CGFloat)width
-{
-    CGRect frame = self.frame;
-    frame.size.width = width;
-    self.frame = frame;
-}
-
-- (void)setFrameX:(CGFloat)x andY:(CGFloat)y
-{
+- (void)setFrameX:(CGFloat)x andY:(CGFloat)y {
     CGRect frame = self.frame;
     frame.origin = CGPointMake(x, y);
     self.frame = frame;
 }
 
-- (void)setFrameHeight:(CGFloat)height andWidth:(CGFloat)width
-{
+- (void)setFrameHeight:(CGFloat)height andWidth:(CGFloat)width {
     CGRect frame = self.frame;
     frame.size = CGSizeMake(width, height);
     self.frame = frame;
 }
 
-- (void)setTop:(CGFloat)top andHeight:(CGFloat)height
-{
+- (void)setTop:(CGFloat)top andHeight:(CGFloat)height {
     CGRect frame = self.frame;
     frame.origin.y = top;
     frame.size.height = height;
     self.frame = frame;
 }
 
-- (void)setLeft:(CGFloat)left andWidth:(CGFloat)width
-{
+- (void)setLeft:(CGFloat)left andWidth:(CGFloat)width {
     CGRect frame = self.frame;
     frame.origin.x = left;
     frame.size.width = width;
@@ -69,80 +37,68 @@
 
 #pragma mark - Additional properties
 
-- (void)setHeight:(float)height
+- (void)setHeight:(CGFloat)height
 {
     CGRect frame = self.frame;
     frame.size.height = height;
     self.frame = frame;
 }
 
-- (void)setWidth:(float)width
-{
+- (void)setWidth:(CGFloat)width {
     CGRect frame = self.frame;
     frame.size.width = width;
     self.frame = frame;
 }
 
-- (void)setTop:(float)top
-{
+- (void)setTop:(CGFloat)top {
     CGRect frame = self.frame;
     frame.origin.y = top;
     self.frame = frame;
 }
 
-- (void)setLeft:(float)left
-{
+- (void)setLeft:(CGFloat)left {
     CGRect frame = self.frame;
     frame.origin.x = left;
     self.frame = frame;
 }
 
-- (void)setBottom:(float)bottom
-{
+- (void)setBottom:(CGFloat)bottom {
     CGRect frame = self.frame;
     frame.origin.y = bottom - frame.size.height;
     self.frame = frame;
 }
 
-- (void)setRight:(float)right
-{
+- (void)setRight:(CGFloat)right {
     CGRect frame = self.frame;
     frame.origin.x = right - frame.size.width;
     self.frame = frame;
 }
 
-- (float)height
-{
+- (CGFloat)height {
     return self.frame.size.height;
 }
 
-- (float)width
-{
+- (CGFloat)width {
     return self.frame.size.width;
 }
 
-- (float)top
-{
+- (CGFloat)top {
     return self.frame.origin.y;
 }
 
-- (float)left
-{
+- (CGFloat)left {
     return self.frame.origin.x;
 }
 
-- (float)right
-{
+- (CGFloat)right {
     return self.frame.origin.x + self.frame.size.width;
 }
 
-- (float)bottom
-{
+- (CGFloat)bottom {
     return self.frame.origin.y + self.frame.size.height;
 }
 
-- (UIImage *)screenImage
-{
+- (UIImage *)screenImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
     UIImage *copied = UIGraphicsGetImageFromCurrentImageContext();

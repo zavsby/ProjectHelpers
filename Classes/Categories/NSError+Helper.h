@@ -10,6 +10,6 @@
 
 @interface NSError (Helper)
 
-+(id)errorWithDomain:(NSString*)domain description:(NSString*)desc code:(NSInteger)c;
++ (id)errorWithDomain:(NSString *)domain description:(NSString *)desc code:(NSInteger)c;
 
 @end

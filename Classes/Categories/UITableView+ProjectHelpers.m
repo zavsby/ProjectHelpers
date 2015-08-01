@@ -10,8 +10,7 @@
 
 @implementation UITableView (ProjectHelpers)
 
--(NSIndexPath*)indexPathForRowContaining:(UIView *)view
-{
+- (NSIndexPath *)indexPathForRowContaining:(UIView *)view {
     CGPoint correctedPoint = [view convertPoint:view.bounds.origin toView:self]; 
     return [self indexPathForRowAtPoint:correctedPoint];
 }

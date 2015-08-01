@@ -10,8 +10,7 @@
 
 @implementation NSDate (ProjectHelpers)
 
-+ (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year
-{
++ (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
     NSDateComponents* components = [[NSDateComponents alloc] init];
     components.day = day;
     components.month = month;
@@ -20,18 +19,15 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSString *)formattedDate:(NSString *)format
-{
+- (NSString *)formattedDate:(NSString *)format {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = format;
     NSString* dateString = [dateFormatter stringFromDate:self];
     return dateString;
 }
 
-+ (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format
-{
-    if (dateString == nil || (NSNull *)dateString == [NSNull null])
-    {
++ (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format {
+    if (dateString == nil || (NSNull *)dateString == [NSNull null]) {
         return nil;
     }
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -40,8 +36,7 @@
     return date;
 }
 
-- (NSComparisonResult)compareWithoutTimeWithDate:(NSDate *)date
-{
+- (NSComparisonResult)compareWithoutTimeWithDate:(NSDate *)date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *selfComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self];
     NSDateComponents *otherComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
@@ -49,9 +44,10 @@
     return [[calendar dateFromComponents:selfComponents] compare:[calendar dateFromComponents:otherComponents]];
 }
 
-- (BOOL)isEqualWithoutTimeWithDate:(NSDate *)date
-{
-    if (date == nil) return NO;
+- (BOOL)isEqualWithoutTimeWithDate:(NSDate *)date {
+    if (date == nil) {
+        return NO;
+    }
         
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *selfComponents = [calendar components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self];
@@ -60,8 +56,7 @@
     return selfComponents.day == otherComponents.day && selfComponents.month == otherComponents.month && selfComponents.year == otherComponents.year;
 }
 
-+ (NSUInteger)daysBetweenDate:(NSDate *)date andDate:(NSDate *)anotherDate
-{
++ (NSUInteger)daysBetweenDate:(NSDate *)date andDate:(NSDate *)anotherDate {
     NSDate *fromDate;
     NSDate *toDate;
     
@@ -78,8 +73,7 @@
     return abs((int)[difference day]);
 }
 
--(NSDate*)remindBirthdayDateIn:(NSInteger)days atHour:(NSInteger)hour andMinute:(NSInteger)minute
-{
+-(NSDate *)remindBirthdayDateIn:(NSInteger)days atHour:(NSInteger)hour andMinute:(NSInteger)minute {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     NSDate* birthdayDate = [self dateOfDayBeginning];
     NSTimeInterval interval = [birthdayDate timeIntervalSince1970] - days * 86400;
@@ -91,8 +85,7 @@
     return [calendar dateFromComponents:dateComponents];
 }
 
-- (NSDate *)dateOfDayBeginning
-{
+- (NSDate *)dateOfDayBeginning {
     NSCalendar* calendar = [NSCalendar currentCalendar];
     NSDateComponents* components = [calendar components:(NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit) fromDate:self];
     components.hour = 0;
@@ -101,8 +94,7 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSString *)formattedOMDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo
-{
+- (NSString *)formattedOMDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo {
     NSDate* dateNow = [NSDate date];
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents* nowComponents = [calendar components:NSSecondCalendarUnit|NSMinuteCalendarUnit|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:dateNow];
@@ -112,38 +104,28 @@
     NSInteger dayDifference = nowComponents.day - selfComponents.day;
     NSInteger monthDifference = nowComponents.month - selfComponents.month;
     NSInteger yearDifference = nowComponents.year - selfComponents.year;
-    if (monthDifference == 0 && yearDifference == 0 && dayDifference<8)
-    {
+    if (monthDifference == 0 && yearDifference == 0 && dayDifference < 8) {
         [formatter setDateFormat:@"HH:mm"];
-        switch (dayDifference)
-        {
+        switch (dayDifference) {
             case 0:
-                if (!showTimeAgo)
-                {
+                if (!showTimeAgo) {
                     return [NSString stringWithFormat:NSLocalizedString(@"Today at %@", nil),[formatter stringFromDate:self]];
-                }
-                else
-                {
+                } else {
                     NSInteger hourDifference = nowComponents.hour - selfComponents.hour;
                     NSInteger minuteDifference = nowComponents.minute - selfComponents.minute;
                     NSInteger secondsDifference = nowComponents.second - selfComponents.second;
-                    if (hourDifference > 0)
-                    {
+                    if (hourDifference > 0) {
                         NSString *hourLabel = hourDifference > 1 ? NSLocalizedString(@"hours", nil) : NSLocalizedString(@"hour", nil);
                         return [NSString stringWithFormat:NSLocalizedString(@"%d %@", nil), hourDifference, hourLabel];
                     }
-                    if (minuteDifference > 0)
-                    {
+                    if (minuteDifference > 0) {
                         NSString *minuteLabel = minuteDifference > 1 ? NSLocalizedString(@"minutes", nil) : NSLocalizedString(@"minute", nil);
                         return [NSString stringWithFormat:NSLocalizedString(@"%d %@", nil), minuteDifference, minuteLabel];
                     }
-                    if (secondsDifference > 0)
-                    {
+                    if (secondsDifference > 0) {
                         NSString *secondLabel = secondsDifference > 1 ? NSLocalizedString(@"seconds", nil) : NSLocalizedString(@"second", nil);
                         return [NSString stringWithFormat:NSLocalizedString(@"%d %@", nil), secondsDifference, secondLabel];
-                    }
-                    else
-                    {
+                    } else {
                         return NSLocalizedString(@"just now", nil);
                     }
                 }
@@ -164,21 +146,17 @@
             default:
                 return nil;
         }
-    }
-    else
-    {
+    } else {
         [formatter setDateFormat:format];
         return [formatter stringFromDate:self];
     }
 }
 
-- (NSString *)formattedOMDateTime:(NSString *)format
-{
+- (NSString *)formattedOMDateTime:(NSString *)format {
     return [self formattedOMDateTime:format showTimeAgo:NO];
 }
 
-- (NSString*)formattedOMDate:(NSString *)format
-{
+- (NSString *)formattedOMDate:(NSString *)format {
     NSDate * dateNow = [NSDate date];
     NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents * nowComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:dateNow];
@@ -189,15 +167,13 @@
     NSInteger monthDifference = nowComponents.month - selfComponents.month;
     NSInteger yearDifference = nowComponents.year - selfComponents.year;
     
-    if (monthDifference == 0 && yearDifference == 0 && dayDifference<8)
-    {
-        if( dayDifference == 0 )
-        {
+    if (monthDifference == 0 && yearDifference == 0 && dayDifference < 8) {
+        if (dayDifference == 0) {
             [formatter setDateFormat:@"HH:mm"];
             return [formatter stringFromDate:self];
         }
-        switch (dayDifference)
-        {
+        
+        switch (dayDifference) {
             case 1:
                 return NSLocalizedString(@"Yesterday", @"Yesterday");
             case 2:
@@ -215,9 +191,7 @@
             default:
                 return nil;
         }
-    }
-    else
-    {
+    } else {
         [formatter setDateFormat:format];
         return [formatter stringFromDate:self];
     }

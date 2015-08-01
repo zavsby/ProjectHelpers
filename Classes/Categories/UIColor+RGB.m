@@ -10,29 +10,24 @@
 
 @implementation UIColor (RGB)
 
-+ (UIColor *)colorRGBWithRed:(NSInteger)red green:(NSInteger)green blue:(NSUInteger)blue alpha:(CGFloat)alpha
-{
++ (UIColor *)colorRGBWithRed:(NSInteger)red green:(NSInteger)green blue:(NSUInteger)blue alpha:(CGFloat)alpha {
     return [UIColor colorWithRed:(1.0*(CGFloat)red)/255 green:(1.0*(CGFloat)green)/255 blue:(1.0*(CGFloat)blue)/255 alpha:alpha];
 }
 
-+ (UIColor *)colorWithHexString:(NSString *)hex
-{
++ (UIColor *)colorWithHexString:(NSString *)hex {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
     // String should be 6 or 8 characters
-    if ([cString length] < 6)
-    {
+    if ([cString length] < 6) {
         return [UIColor grayColor];
     }
     
     // strip 0X if it appears
-    if ([cString hasPrefix:@"0X"])
-    {
+    if ([cString hasPrefix:@"0X"]) {
         cString = [cString substringFromIndex:2];
     }
     
-    if ([cString length] != 6)
-    {
+    if ([cString length] != 6) {
         return  [UIColor grayColor];
     }
     

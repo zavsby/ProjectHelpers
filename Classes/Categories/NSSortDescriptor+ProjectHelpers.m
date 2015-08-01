@@ -10,10 +10,8 @@
 
 @implementation NSSortDescriptor (ProjectHelpers)
 
-+ (NSArray *)sortDescriptorsFromString:(NSString *)str
-{
-    if (str == nil || [str isEqualToString:@""])
-    {
++ (NSArray *)sortDescriptorsFromString:(NSString *)str {
+    if (str == nil || [str isEqualToString:@""]) {
         return nil;
     }
     
@@ -23,30 +21,25 @@
     NSArray *lastFieldComponents = [((NSString *)fields.lastObject) componentsSeparatedByString:@" "];
     BOOL isAscending = lastFieldComponents.count > 1 ? [self isAscendingString:lastFieldComponents[1]] : YES;
     
-    for (NSString *sortField in fields)
-    {
+    for (NSString *sortField in fields) {
         NSArray *components = [sortField componentsSeparatedByString:@" "];
         [sortDescriptors addObject:[NSSortDescriptor sortDescriptorWithKey:components[0] ascending:components.count > 1 ? [self isAscendingString:components[1]] : isAscending]];
     }
     
-    //    NSLog(@"%@", fields);
-    
     return sortDescriptors;
 }
 
-+ (BOOL)isAscendingString:(NSString *)str
-{
++ (BOOL)isAscendingString:(NSString *)str {
     static NSString *ascString = @"asc";
     static NSString *descString = @"desc";
     
-    if ([str isEqualToString:ascString])
-    {
+    if ([str isEqualToString:ascString]) {
         return YES;
     }
-    else if ([str isEqualToString:descString])
-    {
+    else if ([str isEqualToString:descString]) {
         return NO;
     }
+    
     @throw [[NSException alloc] initWithName:@"Argument Exception" reason:@"Unknown sort param." userInfo:nil];
 }
 

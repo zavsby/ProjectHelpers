@@ -12,12 +12,6 @@
 
 + (NSString *)supportDirectory;
 + (NSString *)cachesDirectory;
-- (NSString *)documentsDirectory;
-+ (int)screenHeight;
-+ (int)screenWidth;
-+ (int)realScreenWidth;
-+ (int)realScreenHeight;
-+ (BOOL)is4InchDevice;
-+ (BOOL)is35InchDevice;
++ (NSString *)documentsDirectory;
 
 @end

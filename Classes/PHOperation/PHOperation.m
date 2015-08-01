@@ -8,50 +8,53 @@
 
 #import "PHOperation.h"
 
+@interface PHOperation ()
+
+@property (nonatomic, assign) BOOL executing;
+@property (nonatomic, assign) BOOL finished;
+
+@end
+
 @implementation PHOperation
 
--(void)start
-{
+- (void)start {
     if ([self isCancelled])
     {
         [self willChangeValueForKey:@"isFinished"];
-        finished = YES;
+        self.finished = YES;
         [self didChangeValueForKey:@"isFinished"];
         return;
     }
+    
     [self willChangeValueForKey:@"isExecuting"];
-    executing = YES;
+    self.executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
+    
     [self main];
 }
 
--(void)main
-{
+- (void)main {
     // SHOULD BE OVERRIDEN IN YOUR OPERATION
 }
 
--(void)completeOperation
-{
+- (void)completeOperation {
     [self willChangeValueForKey:@"isFinished"];
     [self willChangeValueForKey:@"isExecuting"];
-    executing = NO;
-    finished = YES;
+    self.executing = NO;
+    self.finished = YES;
     [self didChangeValueForKey:@"isFinished"];
     [self didChangeValueForKey:@"isExecuting"];
 }
 
--(BOOL)isExecuting
-{
-    return executing;
+- (BOOL)isExecuting {
+    return self.executing;
 }
 
--(BOOL)isFinished
-{
-    return finished;
+- (BOOL)isFinished {
+    return self.finished;
 }
 
--(BOOL)isConcurrent
-{
+- (BOOL)isConcurrent {
     return YES;
 }
 

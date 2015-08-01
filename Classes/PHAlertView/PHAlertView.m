@@ -8,10 +8,15 @@
 
 #import "PHAlertView.h"
 
+@interface PHAlertView ()
+
+@property (nonatomic, copy) AlertBlock alertBlock;
+
+@end
+
 @implementation PHAlertView
 
-+ (id)showWithTitle:(NSString *)title message:(NSString *)message usingBlock:(void (^)(NSUInteger))block cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
-{
++ (id)showWithTitle:(NSString *)title message:(NSString *)message usingBlock:(AlertBlock)block cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... {
     PHAlertView * alert = [[self alloc] initWithTitle:title
                                                           message:message
                                                          delegate:nil
@@ -19,12 +24,11 @@
                                                 otherButtonTitles:nil];
     
     alert.delegate = alert;
-    alert->_block = [block copy];
+    alert.alertBlock = block;
     
     va_list args;
     va_start(args, otherButtonTitles);
-    for (NSString *buttonTitle = otherButtonTitles; buttonTitle != nil; buttonTitle = va_arg(args, NSString*))
-    {
+    for (NSString *buttonTitle = otherButtonTitles; buttonTitle != nil; buttonTitle = va_arg(args, NSString*)) {
         [alert addButtonWithTitle:buttonTitle];
     }
     va_end(args);
@@ -34,11 +38,9 @@
     return alert;
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (_block)
-    {
-        _block(buttonIndex);
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (self.alertBlock) {
+        self.alertBlock (buttonIndex);
     }
 }
 

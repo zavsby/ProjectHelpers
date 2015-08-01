@@ -29,8 +29,7 @@
     return roundedImage;
 }
 
-+ (UIImage*)getMaskForRect:(CGRect)rect withRadiusTopLeft:(CGFloat)tl topRight:(CGFloat)tr bottomLeft:(CGFloat)bl bottomRight:(CGFloat)br
-{
++ (UIImage*)getMaskForRect:(CGRect)rect withRadiusTopLeft:(CGFloat)tl topRight:(CGFloat)tr bottomLeft:(CGFloat)bl bottomRight:(CGFloat)br {
     return MTDContextCreateRoundedMask(rect, tl, tr, bl, br);
 }
 
@@ -87,8 +86,7 @@ static inline UIImage* MTDContextCreateRoundedMask( CGRect rect, CGFloat radius_
     return theImage;
 }
 
-- (BOOL)isHorizontalOrientation
-{
+- (BOOL)isHorizontalOrientation {
     return self.imageOrientation == UIImageOrientationDown || self.imageOrientation == UIImageOrientationDownMirrored || self.imageOrientation == UIImageOrientationUp || self.imageOrientation == UIImageOrientationUpMirrored;
 }
 

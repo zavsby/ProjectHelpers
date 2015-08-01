@@ -11,9 +11,6 @@
 typedef void (^AlertBlock)(NSUInteger index);
 
 @interface PHAlertView : UIAlertView
-{
-    AlertBlock _block;
-}
 
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message

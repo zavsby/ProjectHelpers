@@ -39,7 +39,6 @@
 #import "UIImage+ProjectHelpers.h"
 #import "UILabel+ProjectHelpers.h"
 // Method -setNavigationBarBackground sets background's image to the navigation bar (for any iOS version)
-#import "UINavigationBar+BackgroundExtension.h"
 // Method -screenHeight returns height of iPhone screen
 #import "UIScreen+ProjectHelpers.h"
 #import "UIScrollView+ProjectHelpers.h"

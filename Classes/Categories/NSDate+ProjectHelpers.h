@@ -10,10 +10,10 @@
 
 @interface NSDate (ProjectHelpers)
 
-+(NSDate*)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
-+(NSDate*)dateFromString:(NSString*)dateString withFormat:(NSString*)format;
++ (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year;
++ (NSDate *)dateFromString:(NSString *)dateString withFormat:(NSString *)format;
 
--(NSString*)formattedDate:(NSString*)format;
+- (NSString *)formattedDate:(NSString *)format;
 
 - (NSComparisonResult)compareWithoutTimeWithDate:(NSDate *)date;
 - (BOOL)isEqualWithoutTimeWithDate:(NSDate *)date;

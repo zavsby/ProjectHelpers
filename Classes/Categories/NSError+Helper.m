@@ -10,14 +10,10 @@
 
 @implementation NSError (Helper)
 
-+ (id)errorWithDomain:(NSString *)domain description:(NSString *)desc code:(NSInteger)c
-{
-    if (desc)
-    {
++ (id)errorWithDomain:(NSString *)domain description:(NSString *)desc code:(NSInteger)c {
+    if (desc) {
         return [NSError errorWithDomain:domain code:c userInfo:@{NSLocalizedDescriptionKey: desc}];
-    }
-    else
-    {
+    } else {
         return [NSError errorWithDomain:domain code:c userInfo:nil];
     }
 }

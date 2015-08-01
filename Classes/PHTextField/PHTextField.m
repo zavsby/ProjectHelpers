@@ -10,13 +10,11 @@
 
 @implementation PHTextField
 
-- (CGRect)textRectForBounds:(CGRect)bounds
-{
+- (CGRect)textRectForBounds:(CGRect)bounds {
     return CGRectInset(bounds, self.textRectInset.width, self.textRectInset.height);
 }
 
-- (CGRect)editingRectForBounds:(CGRect)bounds
-{
+- (CGRect)editingRectForBounds:(CGRect)bounds {
     return CGRectInset(bounds, self.textRectInset.width, self.textRectInset.height);
 }
 
