@@ -10,13 +10,11 @@
 
 @implementation UIScrollView (ProjectHelpers)
 
-- (void)setTopContentInsets:(int)topInset
-{
+- (void)setTopContentInsets:(CGFloat)topInset {
     self.contentInset = UIEdgeInsetsMake(topInset, self.contentInset.left, self.contentInset.bottom, self.contentInset.right);
 }
 
-- (void)setBottomContentInsets:(int)bottomInset
-{
+- (void)setBottomContentInsets:(CGFloat)bottomInset {
     self.contentInset = UIEdgeInsetsMake(self.contentInset.top, self.contentInset.left, bottomInset, self.contentInset.right);
 }
 

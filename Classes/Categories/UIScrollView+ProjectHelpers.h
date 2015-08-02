@@ -9,7 +9,7 @@
 
 @interface UIScrollView (ProjectHelpers)
 
-- (void)setTopContentInsets:(int)topInset;
-- (void)setBottomContentInsets:(int)bottomInset;
+- (void)setTopContentInsets:(CGFloat)topInset;
+- (void)setBottomContentInsets:(CGFloat)bottomInset;
 
 @end

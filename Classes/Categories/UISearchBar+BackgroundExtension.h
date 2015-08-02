@@ -10,8 +10,7 @@
 
 @interface UISearchBar (BackgroundExtension)
 
--(void)setSearchBarBackgroundImage:(UIImage*)image;
--(void)setCustomCancelButtonBackgroundImage:(UIImage*)image;
--(void)setTextFieldBackgroundImage:(UIImage*)image;
+- (void)setCustomCancelButtonBackgroundImage:(UIImage *)image;
+- (void)setTextFieldBackgroundImage:(UIImage *)image;
 
 @end

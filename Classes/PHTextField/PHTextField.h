@@ -10,6 +10,6 @@
 
 @interface PHTextField : UITextField
 
-@property (nonatomic,assign) CGSize textRectInset;
+@property (nonatomic, assign) CGSize textRectInset;
 
 @end

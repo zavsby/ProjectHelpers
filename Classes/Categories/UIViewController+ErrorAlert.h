@@ -7,7 +7,6 @@
 //
 
 @import UIKit;
-#import "UIDevice+ProjectHelpers.h"
 
 @interface UIViewController (ErrorAlert)
 

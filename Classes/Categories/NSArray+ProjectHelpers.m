@@ -7,12 +7,12 @@
 //
 
 #import "NSArray+ProjectHelpers.h"
+#import "NSSortDescriptor+ProjectHelpers.h"
 
 @implementation NSArray (ProjectHelpers)
 
-- (NSArray *)sortedArray:(NSString *)sort
-{
-    return [self sortedArrayUsingDescriptors:[NSSortDescriptor sortDescriptorsFromString:sort]];
+- (NSArray *)sortedArray:(NSString *)sortString {
+    return [self sortedArrayUsingDescriptors:[NSSortDescriptor sortDescriptorsFromString:sortString]];
 }
 
 @end

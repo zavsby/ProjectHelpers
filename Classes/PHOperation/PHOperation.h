@@ -8,15 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-// Для того чтобы определить свою операцию нужно переопределить метод main
-// После завершения действий внутри операции нужно вызывать метод -completeOperation
-
+/*
+ *  If you need to create your own operation you should override -main method.
+ *  After completing all necessary actions you should call -completeOperation method.
+ */
 @interface PHOperation : NSOperation
-{
-    BOOL executing;
-    BOOL finished;
-}
 
--(void)completeOperation;
+- (void)completeOperation;
 
 @end

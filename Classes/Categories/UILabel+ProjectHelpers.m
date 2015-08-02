@@ -10,16 +10,14 @@
 
 @implementation UILabel (ProjectHelpers)
 
-- (void)setLabelFrameBehindLabel:(UILabel *)label withIndent:(int)indent
-{
+- (void)setLabelFrameBehindLabel:(UILabel *)label withIndent:(NSInteger)indent {
     NSInteger width = [label.text sizeWithAttributes:@{NSFontAttributeName: label.font}].width;
     CGRect labelFrame = self.frame;
     labelFrame.origin.x = label.frame.origin.x + width + indent;
     self.frame = labelFrame;
 }
 
-- (float)labelHeightForText:(NSString *)text
-{
+- (CGFloat)labelHeightForText:(NSString *)text {
     CGSize constraint = CGSizeMake(self.frame.size.width, 10000);
     return ceil([text boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.font} context:nil].size.height);
 }
