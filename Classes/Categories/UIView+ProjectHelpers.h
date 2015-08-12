@@ -24,4 +24,13 @@
 
 - (UIImage *)screenImage;
 
+/**
+ *  Creates a view instance using XIB file with class name.
+ */
++ (instancetype)loadFromNib;
+/**
+ *  Creates a view instance custom XIB file.
+ */
++ (instancetype)loadFromCustomNib:(NSString *)nibName;
+
 @end

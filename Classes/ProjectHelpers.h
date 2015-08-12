@@ -62,3 +62,4 @@
 #import "PHAlertView.h"
 #import "PHCellSizeManager.h"
 #import "PHDateFormatter.h"
+#import "PHSegmentsConfiguration.h"

@@ -106,4 +106,14 @@
     return copied;
 }
 
+#pragma mark - Nib
+
++ (instancetype)loadFromCustomNib:(NSString *)nibName {
+    return [[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil].firstObject;
+}
+
++ (instancetype)loadFromNib {
+    return [self loadFromCustomNib:NSStringFromClass(self)];
+}
+
 @end
