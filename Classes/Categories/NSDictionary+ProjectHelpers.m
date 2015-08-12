@@ -41,6 +41,48 @@ static NSNumberFormatter *defaultNumberFormatter;
     return nil;
 }
 
+- (BOOL)boolValueForKey:(NSString *)key {
+    if (key != nil) {
+        id value = [self objectForKey:key];
+        
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [value boolValue];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            if ([value isEqualToString:@"true"] || [value isEqualToString:@"1"]) {
+                return YES;
+            } else if ([value isEqualToString:@"false"] || [value isEqualToString:@"0"]) {
+                return NO;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+- (NSDictionary *)dictionaryForKey:(NSString *)key {
+    if (key != nil) {
+        id value = [self objectForKey:key];
+        
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            return value;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSArray *)arrayForKey:(NSArray *)key {
+    if (key != nil) {
+        id value = [self objectForKey:key];
+        
+        if ([value isKindOfClass:[NSArray class]]) {
+            return value;
+        }
+    }
+    
+    return nil;
+}
+
 - (id)nullableObjectForKey:(NSString *)key {
     if (key != nil) {
         id value = [self objectForKey:key];
