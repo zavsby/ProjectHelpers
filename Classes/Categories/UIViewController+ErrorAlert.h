@@ -10,8 +10,8 @@
 
 @interface UIViewController (ErrorAlert)
 
-- (void)showError:(NSError *)error;
-- (void)showMessage:(NSString *)message withTitle:(NSString *)title;
+- (void)showError:(NSError *)error __attribute__((deprecated));;
+- (void)showMessage:(NSString *)message withTitle:(NSString *)title __attribute__((deprecated));;
 - (void)showMessage:(NSString *)message __attribute__((deprecated));
 
 @end

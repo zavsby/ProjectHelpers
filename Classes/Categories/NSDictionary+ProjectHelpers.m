@@ -71,7 +71,7 @@ static NSNumberFormatter *defaultNumberFormatter;
     return nil;
 }
 
-- (NSArray *)arrayForKey:(NSArray *)key {
+- (NSArray *)arrayForKey:(NSString *)key {
     if (key != nil) {
         id value = [self objectForKey:key];
         

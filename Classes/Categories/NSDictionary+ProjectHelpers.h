@@ -14,7 +14,7 @@
 - (NSNumber *)numberForKey:(NSString *)key;
 - (BOOL)boolValueForKey:(NSString *)key;
 - (NSDictionary *)dictionaryForKey:(NSString *)key;
-- (NSArray *)arrayForKey:(NSArray *)key;
+- (NSArray *)arrayForKey:(NSString *)key;
 - (id)nullableObjectForKey:(NSString *)key;
 
 @end
