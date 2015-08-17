@@ -47,6 +47,7 @@
 #import "UITableView+ProjectHelpers.h"
 #import "UIView+ProjectHelpers.h"
 #import "UIViewController+ErrorAlert.h"
+#import "UIViewController+ProjectHelpers.h"
 
 //
 // Helper classes
