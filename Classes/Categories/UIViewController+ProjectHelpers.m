@@ -19,7 +19,7 @@
     [vc didMoveToParentViewController:self];
 }
 
-- (void)removeChildViewController:(UIViewController *)vc {
+- (void)removeChildViewControllerFromParent:(UIViewController *)vc {
     NSParameterAssert(vc);
     
     if (vc.parentViewController) {

@@ -11,6 +11,6 @@
 @interface UIViewController (ProjectHelpers)
 
 - (void)addChildViewController:(UIViewController *)vc onView:(UIView *)view;
-- (void)removeChildViewController:(UIViewController *)vc;
+- (void)removeChildViewControllerFromParent:(UIViewController *)vc;
 
 @end
