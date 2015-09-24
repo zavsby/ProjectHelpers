@@ -32,9 +32,11 @@
 + (NSUInteger)daysBetweenDate:(NSDate *)date andDate:(NSDate *)anotherDate;
 
 - (NSDate *)dateOfDayBeginning;
-- (NSString *)formattedOMDate:(NSString *)format;
-- (NSString *)formattedOMDateTime:(NSString *)format;
-- (NSString *)formattedOMDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo;
+
+- (NSString *)formattedRelativeDate:(NSString *)format;
+- (NSString *)formattedRelativeDateTime:(NSString *)format;
+- (NSString *)formattedRelativeDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo;
+
 - (NSDate *)remindBirthdayDateIn:(NSInteger)days atHour:(NSInteger)hour andMinute:(NSInteger)minute;
 
 @end

@@ -30,12 +30,17 @@
 #pragma mark - Public methods
 
 - (NSDateFormatter *)dateFormatterWithFormat:(NSString *)format {
+    return [self dateFormatterWithFormat:format withLocale:nil];
+}
+
+- (NSDateFormatter *)dateFormatterWithFormat:(NSString *)format withLocale:(NSLocale *)locale {
     NSParameterAssert(format);
     
     NSDateFormatter *dateFormatter = self.formattersCache[format];
     if (dateFormatter == nil) {
         dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = format;
+        dateFormatter.locale = locale ?: [NSLocale currentLocale];
         
         [self.formattersCache setObject:dateFormatter forKey:format];
     }

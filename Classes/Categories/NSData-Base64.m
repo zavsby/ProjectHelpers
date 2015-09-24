@@ -11,16 +11,18 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 
 
 @implementation NSData (MBBase64)
-+ (id)dataWithBase64EncodedString:(NSString *)string;
-{
-	if (string == nil)
-		[NSException raise:NSInvalidArgumentException format:nil];
-	if ([string length] == 0)
+
++ (id)dataWithBase64EncodedString:(NSString *)string {
+    if (string == nil) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:nil userInfo:nil];
+    }
+    
+    if ([string length] == 0) {
 		return [NSData data];
+    }
 	
 	static char *decodingTable = NULL;
-	if (decodingTable == NULL)
-	{
+	if (decodingTable == NULL) {
 		decodingTable = malloc(256);
 		if (decodingTable == NULL)
 			return nil;

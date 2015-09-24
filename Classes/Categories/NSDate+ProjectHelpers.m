@@ -9,6 +9,8 @@
 #import "NSDate+ProjectHelpers.h"
 #import "PHDateFormatter.h"
 
+static const NSInteger kDaysInAWeek = 7;
+
 @implementation NSDate (ProjectHelpers)
 
 + (NSDate *)dateWithDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
@@ -93,23 +95,24 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSString *)formattedOMDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo {
-    NSDate* dateNow = [NSDate date];
-    NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents* nowComponents = [calendar components:NSSecondCalendarUnit|NSMinuteCalendarUnit|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:dateNow];
-    NSDateComponents* selfComponents = [calendar components:NSSecondCalendarUnit|NSMinuteCalendarUnit|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.locale = [NSLocale currentLocale];
+- (NSString *)formattedRelativeDateTime:(NSString *)format showTimeAgo:(BOOL)showTimeAgo {
+    NSDate *dateNow = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSCalendarUnit calendarUnits = NSSecondCalendarUnit|NSMinuteCalendarUnit|NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit;
+    NSDateComponents *nowComponents = [calendar components:calendarUnits fromDate:dateNow];
+    NSDateComponents *selfComponents = [calendar components:calendarUnits fromDate:self];
+    
+    NSDateFormatter *timeFormatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:@"HH:mm"];
+    
     NSInteger dayDifference = nowComponents.day - selfComponents.day;
     NSInteger monthDifference = nowComponents.month - selfComponents.month;
     NSInteger yearDifference = nowComponents.year - selfComponents.year;
-    if (monthDifference == 0 && yearDifference == 0 && dayDifference < 8) {
-        [formatter setDateFormat:@"HH:mm"];
+    
+    if (monthDifference == 0 && yearDifference == 0 && dayDifference <= kDaysInAWeek) {
         switch (dayDifference) {
             case 0:
-                if (!showTimeAgo) {
-                    return [NSString stringWithFormat:NSLocalizedString(@"Today at %@", nil),[formatter stringFromDate:self]];
-                } else {
+                if (showTimeAgo) {
                     NSInteger hourDifference = nowComponents.hour - selfComponents.hour;
                     NSInteger minuteDifference = nowComponents.minute - selfComponents.minute;
                     NSInteger secondsDifference = nowComponents.second - selfComponents.second;
@@ -127,49 +130,50 @@
                     } else {
                         return NSLocalizedString(@"just now", nil);
                     }
+                } else {
+                    return [NSString stringWithFormat:NSLocalizedString(@"Today at %@", nil), [timeFormatter stringFromDate:self]];
                 }
             case 1:
-                return [NSString stringWithFormat:NSLocalizedString(@"Yesterday at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"Yesterday at %@", nil), [timeFormatter stringFromDate:self]];
             case 2:
-                return [NSString stringWithFormat:NSLocalizedString(@"2 days ago at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"2 days ago at %@", nil), [timeFormatter stringFromDate:self]];
             case 3:
-                return [NSString stringWithFormat:NSLocalizedString(@"3 days ago at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"3 days ago at %@", nil), [timeFormatter stringFromDate:self]];
             case 4:
-                return [NSString stringWithFormat:NSLocalizedString(@"4 days ago at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"4 days ago at %@", nil), [timeFormatter stringFromDate:self]];
             case 5:
-                return [NSString stringWithFormat:NSLocalizedString(@"5 days ago at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"5 days ago at %@", nil), [timeFormatter stringFromDate:self]];
             case 6:
-                return [NSString stringWithFormat:NSLocalizedString(@"6 days ago at %@", nil),[formatter stringFromDate:self]];
+                return [NSString stringWithFormat:NSLocalizedString(@"6 days ago at %@", nil), [timeFormatter stringFromDate:self]];
             case 7:
-                return NSLocalizedString(@"Week ago", nil);
+                return [NSString stringWithFormat:NSLocalizedString(@"Week ago at %@", nil), [timeFormatter stringFromDate:self]];
             default:
                 return nil;
         }
     } else {
-        [formatter setDateFormat:format];
+        NSDateFormatter *formatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:format];
         return [formatter stringFromDate:self];
     }
 }
 
-- (NSString *)formattedOMDateTime:(NSString *)format {
-    return [self formattedOMDateTime:format showTimeAgo:NO];
+- (NSString *)formattedRelativeDateTime:(NSString *)format {
+    return [self formattedRelativeDateTime:format showTimeAgo:NO];
 }
 
-- (NSString *)formattedOMDate:(NSString *)format {
-    NSDate * dateNow = [NSDate date];
-    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents * nowComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:dateNow];
-    NSDateComponents * selfComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];;
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    formatter.locale = [NSLocale currentLocale];
+- (NSString *)formattedRelativeDate:(NSString *)format {
+    NSDate *dateNow = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *nowComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:dateNow];
+    NSDateComponents *selfComponents = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:self];;
+    NSDateFormatter *timeFormatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:@"HH:mm"];
     NSInteger dayDifference = nowComponents.day - selfComponents.day;
     NSInteger monthDifference = nowComponents.month - selfComponents.month;
     NSInteger yearDifference = nowComponents.year - selfComponents.year;
     
     if (monthDifference == 0 && yearDifference == 0 && dayDifference < 8) {
         if (dayDifference == 0) {
-            [formatter setDateFormat:@"HH:mm"];
-            return [formatter stringFromDate:self];
+            return [timeFormatter stringFromDate:self];
         }
         
         switch (dayDifference) {
@@ -191,7 +195,7 @@
                 return nil;
         }
     } else {
-        [formatter setDateFormat:format];
+        NSDateFormatter *formatter = [[PHDateFormatter sharedFormatter] dateFormatterWithFormat:format];
         return [formatter stringFromDate:self];
     }
 }

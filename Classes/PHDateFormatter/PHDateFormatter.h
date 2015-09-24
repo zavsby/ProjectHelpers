@@ -17,6 +17,7 @@
 + (instancetype)sharedFormatter;
 
 - (NSDateFormatter *)dateFormatterWithFormat:(NSString *)format;
+- (NSDateFormatter *)dateFormatterWithFormat:(NSString *)format withLocale:(NSLocale *)locale;
 - (void)clearCache;
 
 @end
